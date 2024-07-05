@@ -1,23 +1,13 @@
 const express = require("express");
 const http = require("http");
 const {Server} = require("socket.io");
-const { ExpressPeerServer } = require("peer");
-
-// Initialize Express
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
-
-// PeerJS Server
-const peerServer = ExpressPeerServer(server, {
-  path: "/peerjs", // Ensure this matches the path used in the frontend
+app.get("/", (req, res) => {
+  res.send("Hello World");
 });
 
-// const peerServer = PeerServer({ path: "/peerjs" }); // Remove port here
-
-app.use("/peerjs", peerServer);
-
-// Handle socket connections
 io.on("connection", (socket) => {
   console.log('socketid', socket.id);
   socket.on("join-room", (roomID, peerID) => {
@@ -30,9 +20,7 @@ io.on("connection", (socket) => {
   });
 });
 
-app.get('/',(req,res)=>{
-  res.send('Hello World')
-})
+
 
 // Start the server
 const PORT = process.env.PORT || 5000;
