@@ -1,7 +1,7 @@
 const express = require("express");
 const http = require("http");
 const {Server} = require("socket.io");
-const { PeerServer } = require("peer");
+const { ExpressPeerServer } = require("peer");
 
 // Initialize Express
 const app = express();
@@ -9,7 +9,9 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 // PeerJS Server
-const peerServer = PeerServer({ port: 5001, path: "/" });
+const peerServer = ExpressPeerServer(server, {
+  path: "/peerjs", // Ensure this matches the path used in the frontend
+});
 
 // const peerServer = PeerServer({ path: "/peerjs" }); // Remove port here
 
