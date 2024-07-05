@@ -15,7 +15,7 @@ const peerServer = ExpressPeerServer(server, {
 
 // const peerServer = PeerServer({ path: "/peerjs" }); // Remove port here
 
-// app.use("/peerjs", peerServer);
+app.use("/peerjs", peerServer);
 
 // Handle socket connections
 io.on("connection", (socket) => {
